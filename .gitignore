@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+
+# IDE
+.idea/
+
+# Ausgaben der Messreihen-Werkzeuge (tools/sweep.py, analyze.py, oracle_run.py schreiben hierhin; Rohdaten mehrere MB)
+tools/_out/
+tools/*.log
