@@ -1,6 +1,6 @@
 # Inventory Routing: Wer gehört heute auf die Tour? – Streamlit-Demo
 
-*(noch nicht deployed)*
+**[→ Demo live ausprobieren](https://sebastianhanisch-inventory-routing-demo.streamlit.app/)**
 
 Interaktive Fall-Demo (Bestandsmanagement und Tourenplanung): Ein Depot beliefert Kunden mit Tanks (Heizöl, Gase, Getränke, Ersatzteile). Jeder Kunde verbraucht jeden Tag, und jemand entscheidet, **welche Kunden heute überhaupt auf die Tour gehören**, wie viel
 sie bekommen und in welcher Reihenfolge – in der Fachsprache das **Inventory Routing Problem (IRP)**: Tourenplanung mit **Bestand beim Kunden** über mehrere Tage. Die Demo beantwortet: **Wie viel spart es, Kunden mit kleiner Restreichweite gleich mitzunehmen

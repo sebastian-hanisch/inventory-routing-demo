@@ -59,7 +59,7 @@ def test_readme_sections_come_in_the_portfolio_order():
              "Bewusst nicht umgesetzt", "Reproduktion der Messreihe", "Lokal ausführen", "Verwandte Demos mit demselben mathematischen Modell"]
     assert heads == order
     lines = README.splitlines()
-    assert lines[0] == "# Inventory Routing: Wer gehört heute auf die Tour? – Streamlit-Demo" and lines[2] == "*(noch nicht deployed)*" and "sebastianhanisch-inventory-routing-demo.streamlit.app" not in README
+    assert lines[0] == "# Inventory Routing: Wer gehört heute auf die Tour? – Streamlit-Demo" and lines[2] == "**[→ Demo live ausprobieren](https://sebastianhanisch-inventory-routing-demo.streamlit.app/)**"
     assert README.rstrip().endswith("Gebaut mit Streamlit, Plotly, OR-Tools und fpdf2.")
 
 
