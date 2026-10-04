@@ -18,9 +18,11 @@ from irp_presets import PRESET_STATE_KEYS, SETTING_SPECS
 
 APP = str(pathlib.Path(__file__).resolve().parent.parent / "app.py")
 DATA = R.load_results()
-FOOTER = ("Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-          "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-          "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)")
+FOOTER = (
+    "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zum Thema: [Bestandsmanagement optimieren](https://sebastianhanisch.net/bestandsmanagement-optimierung.html)."
+)
 SLIDERS = ("customers_slider", "capacity_slider", "fleet_slider", "sigma_slider", "penalty_slider", "horizon_slider", "gamma_slider", "early_slider")
 
 

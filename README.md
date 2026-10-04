@@ -169,3 +169,5 @@ Stand 2026-09-24. Kein Portfolio-Stück teilt das ganze Modell (Verbrauch und Ta
 ---
 
 Gebaut mit Streamlit, Plotly, OR-Tools und fpdf2.
+
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zum Thema: [Bestandsmanagement optimieren](https://sebastianhanisch.net/bestandsmanagement-optimierung.html).
