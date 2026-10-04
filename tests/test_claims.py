@@ -60,7 +60,8 @@ def test_readme_sections_come_in_the_portfolio_order():
     assert heads == order
     lines = README.splitlines()
     assert lines[0] == "# Inventory Routing: Wer gehört heute auf die Tour? – Streamlit-Demo" and lines[2] == "**[→ Demo live ausprobieren](https://sebastianhanisch-inventory-routing-demo.streamlit.app/)**"
-    assert README.rstrip().endswith("Gebaut mit Streamlit, Plotly, OR-Tools und fpdf2.")
+    paras = README.rstrip().split("\n\n")  # vorletzter Absatz: Bauhinweis, letzter: Portfolio-Footer (set_demo_footer.py)
+    assert paras[-2] == "Gebaut mit Streamlit, Plotly, OR-Tools und fpdf2." and paras[-1].startswith("Diese Demo ist Teil des Portfolios von [Sebastian Hanisch]")
 
 
 def test_readme_lists_the_neighbour_demos_of_the_model_register_entry():
