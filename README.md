@@ -4,20 +4,20 @@
 
 Interaktive Fall-Demo (Bestandsmanagement und Tourenplanung): Ein Depot beliefert Kunden mit Tanks (Heizöl, Gase, Getränke, Ersatzteile). Jeder Kunde verbraucht jeden Tag, und jemand entscheidet, **welche Kunden heute überhaupt auf die Tour gehören**, wie viel
 sie bekommen und in welcher Reihenfolge – in der Fachsprache das **Inventory Routing Problem (IRP)**: Tourenplanung mit **Bestand beim Kunden** über mehrere Tage. Die Demo beantwortet: **Wie viel spart es, Kunden mit kleiner Restreichweite gleich mitzunehmen
-(„bündeln"), statt erst dann zu liefern, wenn sie melden („reaktiv") – wovon hängt das ab, und wann lohnt es nicht?** Live auf **einer Instanz über 120 Tage** (alle drei Regeln über denselben Verbrauchsstrom, Karte je Tag mit Füllständen, Touren und Mitnehmern,
+(„bündeln“), statt erst dann zu liefern, wenn sie melden („reaktiv“) – wovon hängt das ab, und wann lohnt es nicht?** Live auf **einer Instanz über 120 Tage** (alle drei Regeln über denselben Verbrauchsstrom, Karte je Tag mit Füllständen, Touren und Mitnehmern,
 Halteliste, PDF des Tourenplans) und **vorgerechnet** über 200 gepaarte Instanzen je Zelle, die die Aussage tragen; das **exakte Optimum** einer Kleininstanz (7 Kunden, 6 Tage, CP-SAT) ist der Maßstab.
 
-Teil des Portfolios für die Website „Sebastian Hanisch – Operations Research und Machine Learning". **Fall-Demo der Themenseite „Bestandsmanagement"** und Anschluss an die Straßenlogistik-Seite: die Tourenbausteine (Savings, 2-opt) kennt man aus `vrp_demo`, `alns-demo`
+Teil des Portfolios für die Website „Sebastian Hanisch – Operations Research und Machine Learning“. **Fall-Demo der Themenseite „Bestandsmanagement“** und Anschluss an die Straßenlogistik-Seite: die Tourenbausteine (Savings, 2-opt) kennt man aus `vrp_demo`, `alns-demo`
 und `vrp-nachbarschaften-demo`; neu ist die **Bestandsschicht über die Tage**. Alle Instanzen sind deterministisch (Seed), die Streuung kommt aus der Instanzstichprobe.
 
 ## Warum dieses Problem
 
-Im Portfolio kannte keine Demo Verbrauchsraten, Tankstände beim Kunden oder Nachschubtouren; das Kernmodell ist neu. Es ist **keine fünfte „starr gegen reaktiv"-Demo**: beide Regeln sind reine Online-Regeln auf demselben beobachteten Zustand, es gibt keinen starren Plan,
-der von einer Störung getroffen wird, und die Unsicherheit ändert fast nichts (Befund 3). Es ist aber das **zweite Exemplar der Frage „wie weit vorausschauen"** (nach der Leercontainer-Repositionierung in `leercontainer-demo`), diesmal gekoppelt an eine Tour: die
-Vorschau wirkt nur über den Einfügepreis der Tour, und sie kippt bei zu großzügiger Mitnahme ins Negative. Der eigene Aufhänger sind deshalb nicht „proaktiv ist besser", sondern **der Kapazitätshebel, die Gegenprobe „früher liefern gegen bündeln", die Kipp-Zone der Mitnahmeschwelle
+Im Portfolio kannte keine Demo Verbrauchsraten, Tankstände beim Kunden oder Nachschubtouren; das Kernmodell ist neu. Es ist **keine fünfte „starr gegen reaktiv“-Demo**: beide Regeln sind reine Online-Regeln auf demselben beobachteten Zustand, es gibt keinen starren Plan,
+der von einer Störung getroffen wird, und die Unsicherheit ändert fast nichts (Befund 3). Es ist aber das **zweite Exemplar der Frage „wie weit vorausschauen“** (nach der Leercontainer-Repositionierung in `leercontainer-demo`), diesmal gekoppelt an eine Tour: die
+Vorschau wirkt nur über den Einfügepreis der Tour, und sie kippt bei zu großzügiger Mitnahme ins Negative. Der eigene Aufhänger sind deshalb nicht „proaktiv ist besser“, sondern **der Kapazitätshebel, die Gegenprobe „früher liefern gegen bündeln“, die Kipp-Zone der Mitnahmeschwelle
 und die Lücke zum Optimum**.
 
-**Ehrlich zur Erwartbarkeit:** das Grundergebnis „Bündeln spart etwa ein Sechstel" steht ähnlich in der Literatur (Bündelungsvorteile von Inventory Routing gegenüber getrennter Planung in der Größenordnung 10–30 %). Es ist hier eine eigene Messung an einem eigenen, einfachen
+**Ehrlich zur Erwartbarkeit:** das Grundergebnis „Bündeln spart etwa ein Sechstel“ steht ähnlich in der Literatur (Bündelungsvorteile von Inventory Routing gegenüber getrennter Planung in der Größenordnung 10–30 %). Es ist hier eine eigene Messung an einem eigenen, einfachen
 Modell, keine Übernahme und keine Neuentdeckung; tragfähig machen den Fund die Zusatzbefunde 2, 3, 5 und 7.
 
 ## Befunde und Korrekturen gegenüber dem Plan
@@ -27,7 +27,7 @@ Der Detailplan (`plan_inventory_routing`) und die Vorab-Messreihe (`messreihe_in
 - **AP 0 (a) – Zellen-Abdeckung.** Die Regler stehen auf gemessenen Stufen (3 · 7 · 3 · 5 · 4 = 1260 Kombinationen aus Kunden, Wagen, Touren je Tag, Verbrauchsschwankung und Fehlmengenstrafe). Die Messreihe variiert je Zelle **einen** Parameter ausgehend vom Basisfall; auf den
   Reglerstufen liegen **19** der 27 Zellen, deshalb sind **19 von 1260** Kombinationen exakt gemessen (127 weichen in einem Parameter ab, 374 in zweien, 500 in dreien, 240 in vieren). Die Vergleichsspalte zeigt für alle anderen die nächstliegende gemessene Zelle mit ausdrücklichem
   Hinweis (Abstand = Summe der Stufenabstände; bei Gleichstand gewinnt die Zelle mit dem Parameter weiter vorn in der Reihe Wagen, Flotte, Kunden, Verbrauchsschwankung, Strafe). **Acht Zellen sind nicht über die Regler erreichbar** (geklumpte Kunden, Depot weit außen und in der Ecke,
-  Meldegrenze κ = 0 und 2, kurze und lange Tanks, Wagen 250 mit einer Tour); sie stehen in der Regime-Tabelle und im Reiter „Messreihe". Eine Zusatzmessung (zum Beispiel Flotte 2 mit Wagen 300) wurde nicht gemacht: der Hinweis genügt.
+  Meldegrenze κ = 0 und 2, kurze und lange Tanks, Wagen 250 mit einer Tour); sie stehen in der Regime-Tabelle und im Reiter „Messreihe“. Eine Zusatzmessung (zum Beispiel Flotte 2 mit Wagen 300) wurde nicht gemacht: der Hinweis genügt.
 - **AP 0 (b) – Der Standardwert P(3; 0,5) hält auf frischen Seeds.** Er wurde nach einer Erkundung auf den Seeds 0 bis 59 gewählt, die im Sweep (Seeds 0 bis 199) enthalten sind. Bestätigung auf den **Seeds 200 bis 299** (100 Instanzen, die weder bei der Wahl noch im Sweep vorkamen;
   `tools/confirm_default.py`): Basisfall **+16,7 ± 0,3 %** (Median 16,5 %, Quartile [14,8; 18,1], Minimum 9,3, Maximum 24,9, in 0 % der Instanzen ein Verlust) gegen +17,0 ± 0,3 % im Sweep; die Differenz der Mittel ist −0,3 % (−0,8 Standardfehler der Differenz). Auch Wagen 100 (+0,4 ± 0,1 %),
   Wagen 600 (+29,5 ± 0,5 %) und die knappe Flotte (+19,4 ± 0,5 %) stimmen mit dem Sweep überein. Die Wahl hängt also nicht an den Sweep-Seeds.
@@ -37,14 +37,14 @@ Der Detailplan (`plan_inventory_routing`) und die Vorab-Messreihe (`messreihe_in
   und die Tests nutzen 8 Arbeiter; auf einem Rechner mit wenigen Kernen kann es länger dauern, das Zeitlimit (20 s) liefert dann eine nicht bewiesene Lösung mit ausdrücklichem Status.
 - **Zahl aus der Vorab-Messreihe korrigiert:** `ERGEBNIS.md` nennt für Wagen 250 im Optimum 2,50 Touren in 6 Tagen; der Bericht der Messreihe (`oracle_report_Q250.txt`) und die Neuberechnung ergeben **2,53**. Die README und die App verwenden 2,53.
 - **Der Plan wich an vier Stellen ab:** (1) der Seed-Bereich der Instanz ist 0 bis 299 statt 0 bis 199, damit die Anzeige-Seeds außerhalb der Messreihe (200 bis 299) einstellbar sind; die Kennzahlen der Messreihe stehen weiterhin auf 0 bis 199; (2) die Anzeigewahl neben den Tages-Karten hat
-  die Optionen „Bündeln neben Reaktiv" und „Früher liefern neben Reaktiv" statt „Reaktiv, Bündeln": beide Regeln sind ohnehin immer gerechnet, so kann die Gegenprobe auf der Karte gezeigt werden; (3) die Regime-Tabelle und die Diagramme des Kernabschnitts zeigen den Gewinn der **eingestellten** Regel P(H; γ) in allen 27
+  die Optionen „Bündeln neben Reaktiv“ und „Früher liefern neben Reaktiv“ statt „Reaktiv, Bündeln“: beide Regeln sind ohnehin immer gerechnet, so kann die Gegenprobe auf der Karte gezeigt werden; (3) die Regime-Tabelle und die Diagramme des Kernabschnitts zeigen den Gewinn der **eingestellten** Regel P(H; γ) in allen 27
   Zellen (die Messreihe hat alle 28 Kombinationen je Zelle), damit auch Vorschau und Schwelle dort wirken; (4) τ (Bewertung des Restbestands) ist in der Live-Instanz der Fahrkostensatz je gelieferter Einheit der reaktiven Regel **auf dieser Instanz** (in der Messreihe das Mittel über 200 Instanzen; der Basisgewinn
   ändert sich bei τ = 0 und 2 · τ kaum: 17,0 / 17,0 / 17,1 %).
 - **Plan des Optimums nicht eindeutig:** Bei Seed 19 (Q = 150) lieferte ein Wiederholungslauf des exakten Maßstabs 11 statt 12 Besuche im Optimum bei gleichem Zielwert: **der Zielwert ist eindeutig, der Plan nicht** (bei Gleichstand liefert CP-SAT andere, gleich gute Pläne). Deshalb prüfen die Tests nur den Zielwert.
 
 ## Modell
 
-Fachmodell und Annahmen (Erläuterung im Expander „Wie funktioniert diese Demo?", Formeln im Expander „📐 Mathematische Formulierung"):
+Fachmodell und Annahmen (Erläuterung im Expander „Wie funktioniert diese Demo?“, Formeln im Expander „📐 Mathematische Formulierung“):
 
 - **Instanz (Basis).** 20 Kunden gleichverteilt in 100 × 100, Depot in der Mitte, Euklid-Distanz, Kosten = Strecke; Verbrauchsrate μ je Tag zwischen 6 und 14, Tank C = μ · (8 bis 14 Tage), Anfangsbestand 25 bis 100 % des Tanks; Tagesverbrauch Gamma-verteilt mit Mittel μ und
   Variationskoeffizient σ (Basis 0,3; σ = 0 deterministisch), für alle Regeln **derselbe** Strom.
@@ -53,15 +53,15 @@ Fachmodell und Annahmen (Erläuterung im Expander „Wie funktioniert diese Demo
 - **R – reaktiv:** fällig ist ein Kunde, wenn sein Bestand unter μ · (1 + κσ) fällt (κ = 1); nur Fällige kommen auf die Tour (Savings + 2-opt).
 - **P(H; γ) – bündeln:** wie R, dazu werden Kunden mit Restreichweite bis 1 + κσ + H Tage **auf den vorhandenen Touren** mitgenommen, wenn die billigste Einfügung höchstens γ · (Hin- und Rückfahrt Depot–Kunde) kostet und die Kapazität reicht; gibt es keine fällige Tour, wird nichts mitgenommen. H = 0 ist R (getestet).
   Gitter H ∈ {1, 2, 3, 4, 6, 8, 12} Tage, γ ∈ {0,1; 0,25; 0,5; 1,0}, Standard P(3; 0,5).
-- **E(L) – früher liefern:** die Meldegrenze wird um L ∈ {1, 2, 3} Tage angehoben, ohne Tourenbezug: die Gegenprobe „früher" gegen „bündeln".
+- **E(L) – früher liefern:** die Meldegrenze wird um L ∈ {1, 2, 3} Tage angehoben, ohne Tourenbezug: die Gegenprobe „früher“ gegen „bündeln“.
 - **Exakter Maßstab:** 7 Kunden, 6 Tage, deterministisch, eine Tour je Tag, Tanks 3 bis 6 Tage, Wagen 150 bzw. 250, ganzzahlig; CP-SAT (Kreis mit optionalen Knoten je Tag, Mengen, Bestand ≥ 0); 30 Instanzen je Wagen, alle bewiesen optimal.
 
 ## Methodik
 
 - **Live:** eine Instanz über 120 Tage, alle drei Regeln bei jeder Reglerstellung neu gerechnet (Instanz und Regeln zusammen etwa 0,013 bis 0,025 s, deshalb kein Knopf; die App speichert das Ergebnis je Einstellung mit `st.cache_data`). Es werden **immer alle drei Regeln** gerechnet, damit kein Regler wirkungslos ist.
-- **Vorgerechnet:** 27 Konfigurationen × 32 Regeln × 200 Instanzen × 120 Tage (Sweep 126 s auf 12 Prozessen), gepaart auf denselben Instanzen und Verbrauchsströmen; Gewinn = Mittel der gepaarten Differenz ± Standardfehler, dazu Median und Quartile der Einzelgewinne; die „beste Zelle" des Gitters wird kreuzvalidiert gewählt
+- **Vorgerechnet:** 27 Konfigurationen × 32 Regeln × 200 Instanzen × 120 Tage (Sweep 126 s auf 12 Prozessen), gepaart auf denselben Instanzen und Verbrauchsströmen; Gewinn = Mittel der gepaarten Differenz ± Standardfehler, dazu Median und Quartile der Einzelgewinne; die „beste Zelle“ des Gitters wird kreuzvalidiert gewählt
   (Auswahl auf den geraden, Bewertung auf den ungeraden Seeds und umgekehrt). Ein Vorzeichen gilt nur ab 2 Standardfehlern.
-- **Meldung in drei Zuständen** (aus der Messreihe, nicht aus der einen Instanz): „Bündeln lohnt" (Gewinn der eingestellten Regel mindestens 5 % und über 2 Standardfehler), „Bündeln bringt hier wenig" (dazwischen), „Diese Mitnahmeregel ist hier teurer als reaktiv" (unter −2 Standardfehler).
+- **Meldung in drei Zuständen** (aus der Messreihe, nicht aus der einen Instanz): „Bündeln lohnt“ (Gewinn der eingestellten Regel mindestens 5 % und über 2 Standardfehler), „Bündeln bringt hier wenig“ (dazwischen), „Diese Mitnahmeregel ist hier teurer als reaktiv“ (unter −2 Standardfehler).
 - **Kern unverändert:** `irp_model`, `irp_routing` und `irp_policy` sind mechanisch aus `ir.py` der Messreihe aufgeteilt; die Bitgleichheit ist belegt (Abschnitt Tests).
 
 ## Befunde (gemessen, keine Behauptungen)
@@ -83,7 +83,7 @@ Alle Zahlen stammen aus `data/irp_results.json` (200 Instanzen je Zelle) und wer
 
 - **Stark stilisiert:** ein Depot, Euklid-Distanz, ein Fahrzeugtyp, keine Zeitfenster oder Fahrerregeln, Lieferung am selben Tag, verlorene Fehlmenge ohne Rückstau, jeder Besuch füllt den Tank voll, bekannte Raten und beobachteter Bestand, Verbrauch unabhängig zwischen Kunden und Tagen.
   **Parameter erfunden, nicht kalibriert:** Gebiet, Raten, Tankgrößen, Wagengröße, Strafe; die Gewinne in Prozent gelten für dieses Modell. Der Basisfall Q/q ≈ 3 ist praxisnah für Tankwagen, aber nicht belegt.
-- **Die Regel P(H; γ) ist einfach und selbst gewählt**; die beste Gitterzelle liegt oft am Rand (H = 8 bis 12, γ = 0,1 bis 0,25), ein größeres Gitter könnte mehr bringen. Der Standardwert wurde nach einer Erkundung gewählt (siehe AP 0 (b)); die Kreuzvalidierung der „besten Zelle" trennt Auswahl und Bewertung,
+- **Die Regel P(H; γ) ist einfach und selbst gewählt**; die beste Gitterzelle liegt oft am Rand (H = 8 bis 12, γ = 0,1 bis 0,25), ein größeres Gitter könnte mehr bringen. Der Standardwert wurde nach einer Erkundung gewählt (siehe AP 0 (b)); die Kreuzvalidierung der „besten Zelle“ trennt Auswahl und Bewertung,
   bleibt aber an dieser Instanzfamilie orientiert.
 - **Tourgüte:** Savings + 2-opt sind nur bis 6 Kunden gegen das exakte CVRP geprüft (mittlere Lücke 0,12 %, Median 0, Maximum 6,13 %, in 93 % der Instanzen exakt optimal); bei 20 bis 40 Kunden ist die Güte nicht gemessen. Die Vergleiche zwischen den Regeln nutzen dieselben Bausteine und sind davon weniger betroffen als absolute Kosten.
 - **Das Optimum gibt es nur für die Kleininstanz** (7 Kunden, 6 Tage, eine Tour je Tag, deterministisch, τ = 0,6). **Für die stochastische Basis (20 Kunden, 120 Tage) gibt es kein Optimum**, es ist nicht gerechnet; die Lücke von 12 bis 13 % muss bei größeren Instanzen nicht gleich sein.
@@ -161,9 +161,9 @@ Tests: `python -m pytest tests/ -v`. Volles Bau-Gate: `python tools/check_full.p
 Stand 2026-09-24. Kein Portfolio-Stück teilt das ganze Modell (Verbrauch und Tankstände beim Kunden über mehrere Tage, Nachschubtouren); geteilt sind Bausteine und Fragestellungen:
 
 - **Tourenbausteine:** `vrp_demo`, `alns-demo` und `vrp-nachbarschaften-demo` (kapazitiertes Tourenproblem, Savings und 2-opt): hier eine eigene kleine Fassung, gegen ein exaktes CVRP geprüft; neu ist die Bestandsschicht.
-- **Das Vorschau-Fenster-Muster** („wie weit vorausschauen") steht als erstes Exemplar in `leercontainer-demo`; diese Demo ist das zweite, gekoppelt an eine Tour, mit dem Kipppunkt bei zu großzügiger Mitnahme.
+- **Das Vorschau-Fenster-Muster** („wie weit vorausschauen“) steht als erstes Exemplar in `leercontainer-demo`; diese Demo ist das zweite, gekoppelt an eine Tour, mit dem Kipppunkt bei zu großzügiger Mitnahme.
 - **Schwestern im Tourenplanungs-Zweig:** `nahverkehr-demo` (ein Tag mit Ereignissen: Same-Day-Aufträge, Änderungen, Preis der Planänderung) und `fernverkehr-demo` (Ressourcen entlang der Route). Bei ihnen ist der Plan ein Tag; hier ist er ein fortlaufender Zustand über 120 Tage.
-- **Kein „starr gegen reaktiv":** das Muster (`fahrzeugflotte-demo`, `robuste-kaiplatz-demo`, `blockzuweisung-demo`, `hofrobust-demo`) kommt hier nicht vor: beide Regeln sind reine Online-Regeln, die Störung (σ) ändert den Gewinn kaum.
+- **Kein „starr gegen reaktiv“:** das Muster (`fahrzeugflotte-demo`, `robuste-kaiplatz-demo`, `blockzuweisung-demo`, `hofrobust-demo`) kommt hier nicht vor: beide Regeln sind reine Online-Regeln, die Störung (σ) ändert den Gewinn kaum.
 - **Hindsight-Optimum** als Maßstab (`revenue-management-demo`, `routenresilienz-demo`): hier als exakter Mehrtageslöser auf einer Kleininstanz.
 
 ---
