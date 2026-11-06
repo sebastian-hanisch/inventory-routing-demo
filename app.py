@@ -66,6 +66,17 @@ im Tourenplanungs-Zweig sind `nahverkehr-demo` (ein Tag mit Ereignissen) und `fe
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/inventory-routing-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Händler beliefert Kunden mit Tanks, zum Beispiel für Heizöl. Jeder Tank leert sich jeden Tag ein Stück, und jeden Morgen muss der Händler entscheiden, welche Kunden heute auf die Tour kommen. Die einfache Regel fährt nur zu Kunden, die sich melden, weil ihr Tank fast leer ist. Die Alternative nimmt zusätzlich Kunden mit, deren Tank bald fällig wird und die fast am Weg liegen. Die Demo lässt beide Regeln über viele Tage mit denselben Kunden und demselben Verbrauch fahren. Sie zeigt, wie viel das Mitnehmen spart, wovon das abhängt und wann es sich nicht lohnt oder sogar mehr kostet. Ein kleines Gebiet, für das sich der beste Plan berechnen lässt, zeigt, wie weit die Regeln davon entfernt sind.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/inventory-routing-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 st.caption("🎯 Schnellstart – ein Beispielszenario laden:")
 preset_names = list(C.PRESETS)
 for row in (preset_names[:3], preset_names[3:]):
@@ -379,6 +390,28 @@ jeder Besuch ist kleiner als eine Wagenladung, und wer mitgenommen wird, spart e
     )
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/inventory-routing-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind Kunden $i$ mit Tank $C_i$, einem Bestand $I_i(t)$ und einem Tagesverbrauch $d_i(t)$, ein Depot und Wagen der Kapazität $Q$. Gesucht ist eine Regel, die jeden Tag festlegt, welche Kunden auf die Touren kommen und wie viel sie bekommen, sodass die Kosten $J$ aus Fahrstrecke, Strafe für Fehlmenge und bewertetem Restbestand klein bleiben.
+
+| Symbol | Bedeutung |
+|---|---|
+| $I_i(t)$, $C_i$ | Bestand von Kunde $i$ am Tagesanfang bzw. Größe seines Tanks |
+| $d_i(t)$, $\mu_i$ | Verbrauch am Tag $t$ bzw. mittlerer Tagesverbrauch (Gamma-verteilt, Variationskoeffizient $\sigma$) |
+| $x_i(t)$, $s_i(t)$ | Liefermenge bzw. Fehlmenge (nicht gedeckter Verbrauch) |
+| $Q$ | Kapazität eines Wagens (eine Tour) |
+| $p$, $\tau$ | Strafe je Einheit Fehlmenge bzw. Bewertung des Restbestands je Einheit |
+| $\kappa$ | Sicherheitsfaktor der Meldegrenze $\mu_i(1 + \kappa\sigma)$ |
+| $H$, $\gamma$ | Vorschau in Tagen bzw. Mitnahmeschwelle der Regel P(H; γ) |
+| $\Delta_i$, $d(0, i)$ | Mehrstrecke der billigsten Einfügung von $i$ in eine Tour bzw. Entfernung Depot–Kunde |
+| $L$ | Tage, um die die Regel E(L) früher liefert |
+| $J$, $g$ | Kosten einer Regel bzw. Gewinn gegenüber der reaktiven Regel in % |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/inventory-routing-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Zustand und Dynamik.** Bestand $I_i(t)$ des Kunden $i$ am Tagesanfang mit $0 \le I_i \le C_i$; Verbrauch $d_i(t)$ mit Mittel $\mu_i$ (Gamma-verteilt, Variationskoeffizient $\sigma$). Entscheidung je Tag: Menge $x_i(t) \ge 0$ und Touren,

@@ -90,7 +90,7 @@ def test_skeleton_and_footer():
     assert len(at.title) == 1 and at.title[0].value == "🛢️ Inventory Routing: Wer gehört heute auf die Tour?"
     assert any(v.value.startswith("## 🛢️ Wie viel spart es, mehr Kunden auf eine Tour mitzunehmen?") for v in at.markdown)
     assert any(v.value.startswith("### 📐 Was die Messreihe über 200 Instanzen zeigt") for v in at.markdown)
-    assert [e.label for e in at.expander] == ["🔧 Wie wir das erreichen – Regeln im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
+    assert [e.label for e in at.expander] == ["💬 In einfachen Worten", "🔧 Wie wir das erreichen – Regeln im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
     assert any(c.value == FOOTER for c in at.caption)
     presets = [b.label for b in at.button if b.label in C.PRESETS]
     assert presets == list(C.PRESETS) == ["Standard", "Wagen fast voll", "Großer Wagen", "Zu großzügig", "Knappe Flotte"] and all(len(n) <= 32 for n in presets)
