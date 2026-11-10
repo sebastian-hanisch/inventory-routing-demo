@@ -1,5 +1,5 @@
 """Abnahmekriterien der Presets (Detailplan plan_inventory_routing.html, Abschnitt 7): welche Geschichte erzählt jedes Beispielszenario, und woran erkennt
-man, dass sie trägt?
+man, dass sie stimmt?
 
 Einzige Quelle für tests/test_stories.py (Schwellen einzeln kippen) und tests/test_preset_stories.py (Abnahme der echten Presets). Die Kriterien der
 Messreihe (`criteria`) stehen auf data/irp_results.json, Vorzeichen-Kriterien IMMER zusammen mit der Standardfehler-Bedingung (Betrag > 2 SE). Die gezeigte

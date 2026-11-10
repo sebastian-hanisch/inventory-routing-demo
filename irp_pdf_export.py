@@ -125,7 +125,7 @@ def generate_irp_pdf(settings, live, day, right_rule, message_text, note, cell_t
     for text in [
         "Stark stilisiert: ein Depot, Euklid-Distanz, ein Fahrzeugtyp, keine Zeitfenster oder Fahrerregeln, Lieferung am selben Tag, verlorene Fehlmenge ohne "
         "Rückstau, jeder Besuch füllt den Tank voll. Parameter erfunden, nicht kalibriert: die Gewinne in Prozent gelten für dieses Modell.",
-        f"Eine einzelne Instanz streut; die Aussage tragen die vorgerechneten {C.MEASURED_N} Instanzen je Zelle der Messreihe. Zell-Zuordnung: {cell_text}.",
+        f"Eine einzelne Instanz streut; die Aussage belegen die vorgerechneten {C.MEASURED_N} Instanzen je Zelle der Messreihe. Zell-Zuordnung: {cell_text}.",
         "Die Regel P(H; gamma) ist eine einfache, gewählte Regel und schließt in der Kleininstanz etwa die Hälfte der Lücke zum Optimum; sie garantiert keine "
         "geringere Fehlmenge.",
     ]:

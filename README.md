@@ -5,7 +5,7 @@
 Interaktive Fall-Demo (Bestandsmanagement und Tourenplanung): Ein Depot beliefert Kunden mit Tanks (Heizöl, Gase, Getränke, Ersatzteile). Jeder Kunde verbraucht jeden Tag, und jemand entscheidet, **welche Kunden heute überhaupt auf die Tour gehören**, wie viel
 sie bekommen und in welcher Reihenfolge – in der Fachsprache das **Inventory Routing Problem (IRP)**: Tourenplanung mit **Bestand beim Kunden** über mehrere Tage. Die Demo beantwortet: **Wie viel spart es, Kunden mit kleiner Restreichweite gleich mitzunehmen
 („bündeln“), statt erst dann zu liefern, wenn sie melden („reaktiv“) – wovon hängt das ab, und wann lohnt es nicht?** Live auf **einer Instanz über 120 Tage** (alle drei Regeln über denselben Verbrauchsstrom, Karte je Tag mit Füllständen, Touren und Mitnehmern,
-Halteliste, PDF des Tourenplans) und **vorgerechnet** über 200 gepaarte Instanzen je Zelle, die die Aussage tragen; das **exakte Optimum** einer Kleininstanz (7 Kunden, 6 Tage, CP-SAT) ist der Maßstab.
+Halteliste, PDF des Tourenplans) und **vorgerechnet** über 200 gepaarte Instanzen je Zelle, die die Aussage belegen; das **exakte Optimum** einer Kleininstanz (7 Kunden, 6 Tage, CP-SAT) ist der Maßstab.
 
 Teil des Portfolios für die Website „Sebastian Hanisch – Operations Research und Machine Learning“. **Fall-Demo der Themenseite „Bestandsmanagement“** und Anschluss an die Straßenlogistik-Seite: die Tourenbausteine (Savings, 2-opt) kennt man aus `vrp_demo`, `alns-demo`
 und `vrp-nachbarschaften-demo`; neu ist die **Bestandsschicht über die Tage**. Alle Instanzen sind deterministisch (Seed), die Streuung kommt aus der Instanzstichprobe.
@@ -18,7 +18,7 @@ Vorschau wirkt nur über den Einfügepreis der Tour, und sie kippt bei zu großz
 und die Lücke zum Optimum**.
 
 **Ehrlich zur Erwartbarkeit:** das Grundergebnis „Bündeln spart etwa ein Sechstel“ steht ähnlich in der Literatur (Bündelungsvorteile von Inventory Routing gegenüber getrennter Planung in der Größenordnung 10–30 %). Es ist hier eine eigene Messung an einem eigenen, einfachen
-Modell, keine Übernahme und keine Neuentdeckung; tragfähig machen den Fund die Zusatzbefunde 2, 3, 5 und 7.
+Modell, keine Übernahme und keine Neuentdeckung; belastbar machen den Fund die Zusatzbefunde 2, 3, 5 und 7.
 
 ## Befunde und Korrekturen gegenüber dem Plan
 

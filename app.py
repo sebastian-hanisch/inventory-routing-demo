@@ -4,7 +4,7 @@ Sebastian Hanisch - Operations Research und Machine Learning
 
 Ein Depot beliefert Kunden mit Tanks (Heizöl, Gase, Getränke, Ersatzteile): Jeder Kunde verbraucht jeden Tag, und jemand entscheidet, welche Kunden heute
 auf die Tour gehören. Live: EINE Instanz über 120 Tage, alle drei Regeln (reaktiv R, Bündeln P(H, gamma), früher liefern E(L)) laufen über denselben
-Verbrauchsstrom. Vorgerechnet: die Messreihe über 200 Instanzen je Zelle (data/irp_results.json), die die Aussage trägt. Nur der Exakt-Tab hat einen Knopf
+Verbrauchsstrom. Vorgerechnet: die Messreihe über 200 Instanzen je Zelle (data/irp_results.json), die die Aussage belegt. Nur der Exakt-Tab hat einen Knopf
 (CP-SAT auf der Kleininstanz).
 
 Lauffähig mit: streamlit run app.py
@@ -134,7 +134,7 @@ live = _live(customers, capacity, fleet, sigma, penalty, horizon, gamma, early, 
 st.markdown("## 🛢️ Wie viel spart es, mehr Kunden auf eine Tour mitzunehmen?")
 st.caption(f"Live-Instanz (eine Instanz, {live['days']} Tage): Seed {live['seed']}, {live['N']} Kunden, Wagen {capacity}, höchstens {fleet} Tour{'en' if fleet > 1 else ''} je Tag, Verbrauchsschwankung "
            f"{F.fmt_level(sigma)}, Strafe {penalty} je Einheit. Alle drei Regeln laufen bei jeder Einstellung neu (jede in der Regel unter 0,05 s, je Einstellung zwischengespeichert). "
-           "Eine einzelne Instanz – die vorgerechnete Messreihe unten trägt die Aussage.")
+           "Eine einzelne Instanz – die vorgerechnete Messreihe unten belegt die Aussage.")
 
 metric_rows = [st.columns(2), st.columns(2)]
 UI.render_metrics(metric_rows[0] + metric_rows[1], live)
@@ -288,7 +288,7 @@ with st.expander("🔧 Wie wir das erreichen – Regeln im Vergleich"):
             "Rechts der Gewinn der Messreihe (Mittel ± Standardfehler, 200 Instanzen, nächstliegende Zelle)."
         )
         st.dataframe(UI.rule_table(live, cell), width="stretch", hide_index=True)
-        st.caption("Eine einzelne Instanz: Unterschiede zwischen den Regeln streuen; die Messreihe trägt die Aussage. Bündeln fährt weniger Touren mit höherer Auslastung; früher liefern fährt mehr Besuche ohne Tourenbezug.")
+        st.caption("Eine einzelne Instanz: Unterschiede zwischen den Regeln streuen; die Messreihe belegt die Aussage. Bündeln fährt weniger Touren mit höherer Auslastung; früher liefern fährt mehr Besuche ohne Tourenbezug.")
     with tabs[2]:
         st.markdown(
             "Das **exakte Optimum** kennt alle kommenden Tage und plant mehrtägig (CP-SAT von OR-Tools: je Tag ein Kreis durch das Depot mit optionalen Kunden, Mengen, Bestand ≥ 0). Es gibt es nur für die "
